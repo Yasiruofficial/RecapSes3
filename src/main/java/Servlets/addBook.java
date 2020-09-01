@@ -2,6 +2,7 @@ package Servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -11,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import util.DBConnection;
 
 
 @WebServlet("/addBook")
@@ -35,7 +35,8 @@ public class addBook extends HttpServlet {
         
         try {
            
-            Connection con = DBConnection.getConnection();
+            Class.forName("org.mariadb.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/onlinebookstore","root","admin");
             PreparedStatement stmt;
             
             stmt = con.prepareStatement("INSERT INTO book(name,author,description,uprice) values(?,?,?,?)");
@@ -49,6 +50,8 @@ public class addBook extends HttpServlet {
             
             
         } catch (SQLException ex) {
+            Logger.getLogger(addBook.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(addBook.class.getName()).log(Level.SEVERE, null, ex);
         }
             
