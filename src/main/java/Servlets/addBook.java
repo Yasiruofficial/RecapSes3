@@ -1,5 +1,6 @@
 package Servlets;
 
+import Beans.BookBeen;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -32,17 +33,25 @@ public class addBook extends HttpServlet {
             String author = request.getParameter("author");
             String description = request.getParameter("des");
             String uprice = request.getParameter("uprice");
+            
+           BookBeen book = new BookBeen();
         
+            book.setName(name);
+            book.setAuthor(author);
+            book.setDescription(description);
+            book.setUprice(Float.parseFloat(uprice));
+            
+            
         try {
            
             Class.forName("org.mariadb.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/onlinebookstore","root","admin");
             PreparedStatement stmt = con.prepareStatement("INSERT INTO book(name,author,description,uprice) values(?,?,?,?)");
             
-            stmt.setString(1,name);
-            stmt.setString(2, author);
-            stmt.setString(3, description);
-            stmt.setFloat(4, Float.parseFloat(uprice));
+            stmt.setString(1,book.getName());
+            stmt.setString(2, book.getAuthor());
+            stmt.setString(3, book.getAuthor());
+            stmt.setFloat(4, book.getUprice());
             
             stmt.executeUpdate();
 
