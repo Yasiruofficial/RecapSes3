@@ -40,6 +40,7 @@ public class addToCart extends HttpServlet {
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM book WHERE name=?");
             stmt.setString(1,name);
             ResultSet rs = stmt.executeQuery();
+            
             con.close();       
             
             request.setAttribute("ResultSet", rs);

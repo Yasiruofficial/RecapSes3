@@ -1,9 +1,3 @@
-<%-- 
-    Document   : display
-    Created on : Aug 20, 2020, 1:50:03 PM
-    Author     : yasir
---%>
-
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -23,7 +17,7 @@
             else{
                 
                 out.print("<h1 align=\"center\">Details</h1>");
-                ResultSet rs = (ResultSet)request.getAttribute("ResultSet");
+                ResultSet rs = (ResultSet)request.getAttribute("x");
                 
                 try {
                     

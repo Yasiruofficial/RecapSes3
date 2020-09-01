@@ -37,26 +37,28 @@ public class addBook extends HttpServlet {
            
             Class.forName("org.mariadb.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/onlinebookstore","root","admin");
-            PreparedStatement stmt;
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO book(name,author,description,uprice) values(?,?,?,?)");
             
-            stmt = con.prepareStatement("INSERT INTO book(name,author,description,uprice) values(?,?,?,?)");
             stmt.setString(1,name);
             stmt.setString(2, author);
             stmt.setString(3, description);
             stmt.setFloat(4, Float.parseFloat(uprice));
+            
             stmt.executeUpdate();
 
             con.close();
             
             
         } catch (SQLException ex) {
-            Logger.getLogger(addBook.class.getName()).log(Level.SEVERE, null, ex);
+            
+            System.out.println(ex);
+            
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(addBook.class.getName()).log(Level.SEVERE, null, ex);
+            
+            System.out.println(ex);
+            
         }
             
-    
-        
     }
 
     @Override
